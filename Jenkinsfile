@@ -4,22 +4,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'git@github.com:dannydenis5858-pixel/devops-cicd-app.git'
+                checkout scm
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t devops-demo .'
+                sh 'docker build -t devops-demo:latest .'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Container') {
             steps {
                 sh '''
                 docker rm -f devops-demo || true
-                docker run -d -p 8081:80 --name devops-demo devops-demo
+                docker run -d --name devops-demo -p 8081:80 devops-demo:latest
                 '''
             }
         }
