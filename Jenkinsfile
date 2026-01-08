@@ -32,4 +32,12 @@ pipeline {
     }
 
     post {
+        success {
+            echo 'CI/CD Pipeline executed successfully!'
+        }
+        failure {
+            echo 'CI/CD Pipeline failed. Check logs.'
+        }
+    }
+}
 
